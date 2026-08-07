@@ -1,0 +1,29 @@
+# Render Blueprint — one file that provisions the web service AND the database.
+# Push this repo to GitHub, then in Render: New → Blueprint → pick this repo.
+services:
+  - type: web
+    name: kackar-peak
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn config.wsgi:application"
+    healthCheckPath: /
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true          # Render auto-generates a strong secret
+      - key: DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.12.3"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kackar-peak-db
+          property: connectionString
+      - key: WEB_CONCURRENCY
+        value: "4"
+
+databases:
+  - name: kackar-peak-db
+    plan: free
+    databaseName: kackar_peak
+    user: kackar_peak

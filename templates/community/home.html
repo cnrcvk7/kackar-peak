@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3236"/><stop offset="1" stop-color="#171a1c"/></linearGradient>
+        <linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#39434a"/><stop offset="1" stop-color="#242b30"/></linearGradient>
+        <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3237"/><stop offset="1" stop-color="#1c2124"/></linearGradient>
+      </defs>
+      <rect width="1440" height="900" fill="url(#sky)"/>
+      <circle cx="1150" cy="180" r="60" fill="#f3f0e9" opacity=".08"/>
+      <path d="M0 520 L220 380 L420 470 L640 300 L820 460 L1040 340 L1260 480 L1440 400 V900 H0Z" fill="url(#far)"/>
+      <path d="M0 640 L260 440 L430 560 L620 360 L760 480 L900 380 L1120 560 L1300 460 L1440 580 V900 H0Z" fill="url(#mid)"/>
+      <path d="M620 360 L660 400 L600 400Z" fill="#f3f0e9" opacity=".85"/>
+      <path d="M900 380 L945 430 L865 430Z" fill="#f3f0e9" opacity=".7"/>
+      <path d="M0 780 L200 660 L400 740 L560 620 L720 720 L920 600 L1120 720 L1440 660 V900 H0Z" fill="#171a1c"/>
+    </svg>
+  </div>
+  <div class="hero-veil"></div>
+  <div class="wrap">
+    <div class="hero-tag eyebrow">Topluluk · Doğa · Hareket</div>
+    <h1>
+      <span class="l">Zirveye</span>
+      <span class="l">birlikte.</span>
+    </h1>
+    <p>Kaçkar Peak; koşu, yoga ve doğa yürüyüşünü bir araya getiren bir topluluk. Seviye fark etmez — önemli olan yola çıkmak.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#events">Etkinlikleri gör
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="btn-ghost" href="#join">Bize katıl</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Kaydır</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="strip">
+  <div class="marquee">
+    <span>Cumartesi Koşusu</span><span>Sabah Yogası</span><span>Yayla Yürüyüşü</span><span>Tempo Antrenmanı</span><span>Zirve Tırmanışı</span>
+    <span>Cumartesi Koşusu</span><span>Sabah Yogası</span><span>Yayla Yürüyüşü</span><span>Tempo Antrenmanı</span><span>Zirve Tırmanışı</span>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">Takvim</div>
+        <h2>Yaklaşan etkinlikler</h2>
+      </div>
+      <a class="link" href="{% url 'community:events' %}">Tüm takvim →</a>
+    </div>
+    <div class="events reveal">
+      {% for event in upcoming_events %}
+      <div class="ev">
+        <span class="ev-badge {{ event.badge_class }}">{{ event.get_activity_type_display }}</span>
+        <div class="ev-date"><span class="d">{{ event.start_time|date:"d" }}</span><span class="m">{{ event.start_time|date:"M"|upper }}</span></div>
+        <h3>{{ event.title }}</h3>
+        <div class="meta">{{ event.location }} · {{ event.start_time|date:"H:i" }}{% if event.distance_km %} · {{ event.distance_km }}K{% endif %}{% if event.level %} · {{ event.level }}{% endif %}</div>
+        <div class="joinrow"><span class="count">{{ event.participant_count }} katılımcı</span><a class="join" href="{% url 'community:events' %}">Katıl</a></div>
+      </div>
+      {% empty %}
+      <div class="ev"><h3>Yakında</h3><div class="meta">Yeni etkinlikler çok yakında burada olacak.</div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="grid">
+      <div class="reveal">
+        <div class="eyebrow">Biz kimiz</div>
+        <h2>Küçük bir grup arkadaştan, <em>büyüyen bir harekete.</em></h2>
+        <p>Kaçkar Peak, doğada birlikte hareket etmenin iyileştirici gücüne inanan bir topluluk. Rekabet değil, aidiyet; performans değil, süreklilik. Her tempo, her seviye burada yerini bulur.</p>
+      </div>
+      <div class="stats reveal">
+        {% for stat in stats %}
+        <div class="stat">
+          <div class="n">{{ stat.number }}</div>
+          <div class="k">{{ stat.key }}</div>
+          <div class="t">{{ stat.text }}</div>
+        </div>
+        {% empty %}
+        <div class="stat"><div class="n">200+</div><div class="k">Topluluk</div><div class="t">Aktif üye ve büyüyen bir aile</div></div>
+        <div class="stat"><div class="n">3</div><div class="k">Aktivite</div><div class="t">Koşu · Yoga · Doğa yürüyüşü</div></div>
+        <div class="stat"><div class="n">Haftada 4</div><div class="k">Buluşma</div><div class="t">Düzenli, ücretsiz ve herkese açık</div></div>
+        <div class="stat"><div class="n">2024</div><div class="k">Kuruluş</div><div class="t">İlk günden beri aynı ruhla</div></div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">Ne yapıyoruz</div>
+        <h2>Aktiviteler</h2>
+      </div>
+    </div>
+    <div class="acts reveal">
+      {% for act in activities %}
+      <div class="act">
+        <span class="no">{{ forloop.counter|stringformat:"02d" }}</span>
+        <h3>{{ act.title }}</h3>
+        <p>{{ act.description }}</p>
+      </div>
+      {% empty %}
+      <div class="act"><span class="no">01</span><h3>Koşu</h3><p>Haftalık grup koşuları ve tempo antrenmanları. İlk 1K'nı da atacaksın, maratonuna da hazırlanacaksın.</p></div>
+      <div class="act"><span class="no">02</span><h3>Yoga</h3><p>Doğada gündoğumu seansları. Nefes, esneme ve toparlanma — koşunun ve haftanın dengeleyicisi.</p></div>
+      <div class="act"><span class="no">03</span><h3>Doğa Yürüyüşü</h3><p>Yayla rotaları ve zirve tırmanışları. Kaçkar'ın patikalarını rehberli, güvenli ve birlikte keşfet.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">SSS</div>
+        <h2>Sık sorulan sorular</h2>
+      </div>
+    </div>
+    <div class="faq-list reveal">
+      {% for faq in faqs %}
+      <div class="faq-item">
+        <button class="faq-q">{{ faq.question }}<span class="plus">+</span></button>
+        <div class="faq-a"><p>{{ faq.answer|linebreaksbr }}</p></div>
+      </div>
+      {% empty %}
+      <div class="faq-item"><button class="faq-q">Katılmak için deneyimli olmam gerekiyor mu?<span class="plus">+</span></button><div class="faq-a"><p>Hayır. Etkinliklerimiz her seviyeye açık.</p></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- JOIN BAND -->
+<section class="join-band" id="join">
+  <div class="wrap">
+    <h2 class="reveal">Yola çıkmaya hazır mısın?</h2>
+    <p class="reveal">Bir sonraki buluşmada seni de aramızda görmek istiyoruz. Kayıt bir dakika, geri kalanı sana kalmış.</p>
+    <a class="btn-primary reveal" href="#" style="display:inline-flex">Topluluğa katıl
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+{% endblock %}

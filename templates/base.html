@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{% block meta_desc %}Kaçkar Peak — koşu, yoga ve doğa yürüyüşünü bir araya getiren topluluk. Her tempo, her seviye, herkese açık.{% endblock %}">
+<title>{% block title %}Kaçkar Peak — Topluluk · Doğa · Hareket{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="{% url 'community:home' %}">
+        <svg class="mark" viewBox="0 0 32 32" fill="none">
+          <path d="M2 27L11 9l5 8 4-6 10 16H2z" fill="#7c9070"/>
+          <path d="M11 9l5 8 2-3-3-5-4z" fill="#f3f0e9"/>
+          <path d="M20 11l4-6 4 6-4 2z" fill="#f3f0e9" opacity=".6"/>
+        </svg>
+        KAÇKAR PEAK
+      </a>
+      <div class="navlinks">
+        <a href="{% url 'community:events' %}">Etkinlikler</a>
+        <a href="{% url 'community:home' %}#about">Hakkımızda</a>
+        <a href="{% url 'community:home' %}#activities">Aktiviteler</a>
+        <a href="{% url 'community:gallery' %}">Galeri</a>
+        <a href="{% url 'community:home' %}#faq">SSS</a>
+        <a class="navcta" href="{% url 'community:home' %}#join">Bize Katıl</a>
+      </div>
+      <div class="burger"><span></span><span></span><span></span></div>
+    </nav>
+  </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <h3>Kaçkar Peak</h3>
+        <p>Doğada birlikte hareket eden bir topluluk. Her tempo, her seviye, herkese açık.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Topluluk</h4>
+        <a href="{% url 'community:home' %}#about">Hakkımızda</a>
+        <a href="{% url 'community:events' %}">Etkinlikler</a>
+        <a href="{% url 'community:home' %}#activities">Aktiviteler</a>
+        <a href="{% url 'community:home' %}#join">Bize katıl</a>
+      </div>
+      <div class="foot-col">
+        <h4>Kaynaklar</h4>
+        <a href="{% url 'community:gallery' %}">Galeri</a>
+        <a href="{% url 'community:home' %}#faq">SSS</a>
+      </div>
+      <div class="foot-col">
+        <h4>Bağlantı</h4>
+        <a href="#">Instagram</a>
+        <a href="#">WhatsApp grubu</a>
+        <a href="#">E-posta</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© {% now "Y" %} KAÇKAR PEAK</span>
+      <span>ZİRVEYE BİRLİKTE.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="{% static 'js/site.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

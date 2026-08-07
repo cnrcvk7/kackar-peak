@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Etkinlikler — Kaçkar Peak{% endblock %}
+{% block content %}
+<section style="padding-top:140px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">Takvim</div>
+        <h2>Tüm etkinlikler</h2>
+      </div>
+    </div>
+    <div class="events reveal">
+      {% for event in upcoming_events %}
+      <div class="ev">
+        <span class="ev-badge {{ event.badge_class }}">{{ event.get_activity_type_display }}</span>
+        <div class="ev-date"><span class="d">{{ event.start_time|date:"d" }}</span><span class="m">{{ event.start_time|date:"M"|upper }}</span></div>
+        <h3>{{ event.title }}</h3>
+        <div class="meta">{{ event.location }} · {{ event.start_time|date:"H:i" }}{% if event.distance_km %} · {{ event.distance_km }}K{% endif %}{% if event.level %} · {{ event.level }}{% endif %}</div>
+        <div class="joinrow"><span class="count">{{ event.participant_count }} katılımcı</span><a class="join" href="#">Katıl</a></div>
+      </div>
+      {% empty %}
+      <div class="ev"><h3>Yakında</h3><div class="meta">Yaklaşan etkinlik yok. Çok yakında yeni buluşmalar!</div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if past_events %}
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><div class="eyebrow" style="margin-bottom:14px">Arşiv</div><h2>Geçmiş etkinlikler</h2></div></div>
+    <div class="events reveal">
+      {% for event in past_events %}
+      <div class="ev" style="opacity:.7">
+        <span class="ev-badge {{ event.badge_class }}">{{ event.get_activity_type_display }}</span>
+        <div class="ev-date"><span class="d">{{ event.start_time|date:"d" }}</span><span class="m">{{ event.start_time|date:"M"|upper }}</span></div>
+        <h3>{{ event.title }}</h3>
+        <div class="meta">{{ event.location }} · {{ event.start_time|date:"d.m.Y" }}</div>
+        <div class="joinrow"><span class="count">{{ event.participant_count }} katıldı</span></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

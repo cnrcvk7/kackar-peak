@@ -6,7 +6,7 @@ Koşu, yoga ve doğa yürüyüşü topluluğu için web sitesi. Django + Postgre
 ---
 
 
-## 💻 Yerelde çalıştırma
+## Local'de çalıştırma
 
 ```bash
 python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
@@ -21,13 +21,13 @@ python manage.py runserver
 
 ---
 
-##  Güvenlik
+##  Security
 
 Üretimde (`DEBUG=False`) otomatik aktif olur: HTTPS yönlendirme, HSTS,
 güvenli çerezler, clickjacking koruması, `SECRET_KEY` ortam değişkeninden okunur.
 `python manage.py check --deploy` üretim modunda **0 uyarı** verir.
 
-##  Yapı
+##  Structure
 ```
 config/          Django ayarları, URL'ler
 community/       Uygulama: modeller, view'ler, admin, seed komutu
@@ -37,6 +37,6 @@ render.yaml      Render blueprint (web + veritabanı)
 build.sh         Deploy build script'i
 ```
 
-## İçerik yönetimi
+## Content management
 Admin panelinden yönetilen modeller: **Etkinlikler**, **Aktiviteler**,
 **SSS**, **Galeri**, **İstatistikler**. Kod bilmeden içerik güncellenebilir.

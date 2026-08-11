@@ -4,8 +4,9 @@ from django.utils import timezone
 
 class ActivityType(models.TextChoices):
     RUN = "run", "Koşu"
-    YOGA = "yoga", "Yoga"
+    YOGA = "yoga", "Yoga & Pilates"
     HIKE = "hike", "Doğa Yürüyüşü"
+    BIKE = "bike", "Bisiklet"
 
 
 class Event(models.Model):
@@ -26,6 +27,10 @@ class Event(models.Model):
         "Seviye", max_length=100, blank=True,
         help_text="ör. Tüm seviyeler, Orta, İleri",
     )
+    coffee_note = models.CharField(
+        "Kahve ikramı", max_length=200, blank=True,
+        help_text="ör. Etkinlik sonrası V60 demleme ikramı",
+    )
     participant_count = models.PositiveIntegerField("Katılımcı sayısı", default=0)
     is_weekly = models.BooleanField("Haftalık tekrar", default=False)
     is_published = models.BooleanField("Yayında", default=True)
@@ -45,9 +50,8 @@ class Event(models.Model):
 
     @property
     def badge_class(self):
-        return {"run": "b-run", "yoga": "b-yoga", "hike": "b-hike"}.get(
-            self.activity_type, "b-run"
-        )
+        return {"run": "b-run", "yoga": "b-yoga", "hike": "b-hike",
+                "bike": "b-bike"}.get(self.activity_type, "b-run")
 
 
 class Activity(models.Model):

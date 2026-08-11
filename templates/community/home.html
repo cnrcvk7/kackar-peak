@@ -63,6 +63,7 @@
         <div class="ev-date"><span class="d">{{ event.start_time|date:"d" }}</span><span class="m">{{ event.start_time|date:"M"|upper }}</span></div>
         <h3>{{ event.title }}</h3>
         <div class="meta">{{ event.location }} · {{ event.start_time|date:"H:i" }}{% if event.distance_km %} · {{ event.distance_km }}K{% endif %}{% if event.level %} · {{ event.level }}{% endif %}</div>
+        {% if event.coffee_note %}<div class="coffee-note">☕ {{ event.coffee_note }}</div>{% endif %}
         <div class="joinrow"><span class="count">{{ event.participant_count }} katılımcı</span><a class="join" href="{% url 'community:events' %}">Katıl</a></div>
       </div>
       {% empty %}
@@ -123,6 +124,37 @@
     </div>
   </div>
 </section>
+
+</div>
+  </div>
+</section>
+
+<!-- COFFEE -->
+<section class="coffee" id="coffee">
+  <div class="wrap">
+    <div class="coffee-grid">
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--lime)">Bizim farkımız</div>
+        <h2>Her etkinlik, <em>demlenmiş bir kahveyle</em> biter.</h2>
+        <p>Kaçkar Peak'te spor tek başına gelmez. Yayla yürüyüşünün zirvesinde manzaraya karşı V60, koşu sonrası soluklanırken elde demlenmiş premium kahve — her buluşmanın sonunda ücretsiz ikram. Terleyip, sonra birlikte yudumluyoruz.</p>
+        <div class="coffee-tags">
+          <span>☕ V60 demleme</span>
+          <span>☕ Premium çekirdek</span>
+          <span>☕ Her etkinlikte ücretsiz</span>
+        </div>
+      </div>
+      <div class="coffee-art reveal" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M60 70h80l-8 70a12 12 0 01-12 11H80a12 12 0 01-12-11z" stroke="var(--lime)" stroke-width="3"/>
+          <path d="M140 85h18a16 16 0 010 32h-14" stroke="var(--lime)" stroke-width="3"/>
+          <path d="M85 45c0 8-6 10-6 18M100 42c0 8-6 10-6 18M115 45c0 8-6 10-6 18" stroke="var(--violet)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
 
 <!-- FAQ -->
 <section id="faq">

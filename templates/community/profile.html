@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Profilim — Kaçkar Peak{% endblock %}
+{% block content %}
+<section style="padding-top:140px">
+  <div class="wrap">
+    <div class="profile-head reveal">
+      <div class="profile-avatar">
+        {% if profile.avatar %}
+          <img src="{{ profile.avatar.url }}" alt="{{ user.username }}">
+        {% else %}
+          <div class="avatar-placeholder">{{ user.username|first|upper }}</div>
+        {% endif %}
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px">Profil</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:500;font-size:clamp(32px,5vw,48px);line-height:1">{{ user.username }}</h2>
+        {% if profile.bio %}<p style="color:var(--mist);margin-top:10px;max-width:440px">{{ profile.bio }}</p>{% endif %}
+        <div class="profile-meta">
+          <span><strong>{{ profile.events_attended }}</strong> etkinlik</span>
+          {% if profile.favorite_coffee %}<span>☕ {{ profile.favorite_coffee }}</span>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-grid">
+      <!-- edit form -->
+      <div class="profile-card reveal">
+        <h3>Profili düzenle</h3>
+        <form method="post" enctype="multipart/form-data" class="auth-form">
+          {% csrf_token %}
+          {% for field in form %}
+          <label>{{ field.label }}
+            {{ field }}
+            {% if field.help_text %}<span class="field-help">{{ field.help_text }}</span>{% endif %}
+          </label>
+          {% endfor %}
+          <button type="submit" class="btn-primary" style="justify-content:center">Kaydet</button>
+        </form>
+      </div>
+
+      <!-- my events -->
+      <div class="profile-card reveal">
+        <h3>Katıldığım etkinlikler</h3>
+        {% if my_events %}
+          <ul class="my-events">
+            {% for event in my_events %}
+            <li>
+              <span class="ev-badge {{ event.badge_class }}">{{ event.get_activity_type_display }}</span>
+              <div>
+                <strong>{{ event.title }}</strong>
+                <span>{{ event.start_time|date:"d M Y · H:i" }}</span>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p style="color:var(--mist)">Henüz bir etkinliğe katılmadın. <a href="{% url 'community:events' %}" style="color:var(--lime)">Etkinliklere göz at →</a></p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div style="margin-top:40px">
+      <form method="post" action="{% url 'logout' %}" style="display:inline">
+        {% csrf_token %}
+        <button type="submit" class="btn-ghost" style="background:none;cursor:pointer">Çıkış yap</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

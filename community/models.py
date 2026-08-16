@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class ActivityType(models.TextChoices):
@@ -117,3 +118,87 @@ class SiteStat(models.Model):
 
     def __str__(self):
         return f"{self.number} {self.key}"
+
+
+# ---------------------------------------------------------------------------
+# User community features: profile, RSVP, gallery comments & likes
+# ---------------------------------------------------------------------------
+
+class Profile(models.Model):
+    """Extra info attached to each user account. Created automatically on signup."""
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    avatar = models.ImageField("Profil fotoğrafı", upload_to="avatars/", blank=True)
+    bio = models.CharField("Hakkında", max_length=280, blank=True)
+    favorite_coffee = models.CharField(
+        "Favori kahve / demleme", max_length=120, blank=True,
+        help_text="ör. V60, Chemex, Türk kahvesi",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Profil"
+        verbose_name_plural = "Profiller"
+
+    def __str__(self):
+        return f"{self.user.username} profili"
+
+    @property
+    def events_attended(self):
+        """Live count of events this user has RSVP'd to — never stored, always current."""
+        return self.user.rsvps.count()
+
+
+class RSVP(models.Model):
+    """A user's commitment to attend an event. One per user per event."""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="rsvps")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="rsvps")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "event")
+        verbose_name = "Katılım"
+        verbose_name_plural = "Katılımlar"
+
+    def __str__(self):
+        return f"{self.user.username} → {self.event.title}"
+
+
+class Comment(models.Model):
+    """A comment on a gallery image. Hidden until approved by an admin."""
+    image = models.ForeignKey(
+        GalleryImage, on_delete=models.CASCADE, related_name="comments",
+    )
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    text = models.TextField("Yorum", max_length=1000)
+    is_approved = models.BooleanField(
+        "Onaylandı", default=False,
+        help_text="İşaretlenene kadar yorum sitede görünmez.",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Yorum"
+        verbose_name_plural = "Yorumlar"
+
+    def __str__(self):
+        return f"{self.author.username}: {self.text[:40]}"
+
+    @property
+    def like_count(self):
+        return self.likes.count()
+
+
+class CommentLike(models.Model):
+    """One like per user per comment."""
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="likes")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_likes")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("comment", "user")
+        verbose_name = "Yorum beğenisi"
+        verbose_name_plural = "Yorum beğenileri"
+
+    def __str__(self):
+        return f"{self.user.username} ♥ {self.comment_id}"

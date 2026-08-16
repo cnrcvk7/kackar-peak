@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Kayıt — Kaçkar Peak{% endblock %}
+{% block content %}
+<section style="padding-top:140px;min-height:70vh">
+  <div class="wrap" style="max-width:440px">
+    <div class="eyebrow" style="margin-bottom:14px">Aramıza katıl</div>
+    <h2 style="font-family:'Fraunces',serif;font-weight:500;font-size:40px;margin-bottom:32px">Kayıt ol</h2>
+
+    <form method="post" class="auth-form">
+      {% csrf_token %}
+      {% for field in form %}
+      <label>{{ field.label }}
+        {{ field }}
+        {% if field.errors %}<span class="field-error">{{ field.errors|striptags }}</span>{% endif %}
+        {% if field.help_text %}<span class="field-help">{{ field.help_text|safe }}</span>{% endif %}
+      </label>
+      {% endfor %}
+      <button type="submit" class="btn-primary" style="width:100%;justify-content:center;margin-top:8px">Hesap oluştur</button>
+    </form>
+
+    <p style="color:var(--mist);margin-top:24px;font-size:14px">
+      Zaten üye misin? <a href="{% url 'login' %}" style="color:var(--lime)">Giriş yap</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

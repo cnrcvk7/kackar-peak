@@ -145,3 +145,10 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = "DENY"
     SECURE_REFERRER_POLICY = "same-origin"
+
+# ---------------------------------------------------------------------------
+# Authentication redirects
+# ---------------------------------------------------------------------------
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "community:profile"
+LOGOUT_REDIRECT_URL = "community:home"

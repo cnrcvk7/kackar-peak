@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # Django's built-in login/logout/password views (login, logout, etc.)
+    path("hesap/", include("django.contrib.auth.urls")),
     path("", include("community.urls")),
 ]
 

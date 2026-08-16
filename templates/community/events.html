@@ -16,7 +16,22 @@
         <div class="ev-date"><span class="d">{{ event.start_time|date:"d" }}</span><span class="m">{{ event.start_time|date:"M"|upper }}</span></div>
         <h3>{{ event.title }}</h3>
         <div class="meta">{{ event.location }} · {{ event.start_time|date:"H:i" }}{% if event.distance_km %} · {{ event.distance_km }}K{% endif %}{% if event.level %} · {{ event.level }}{% endif %}</div>
-        <div class="joinrow"><span class="count">{{ event.participant_count }} katılımcı</span><a class="join" href="#">Katıl</a></div>
+        {% if event.coffee_note %}<div class="coffee-note">☕ {{ event.coffee_note }}</div>{% endif %}
+        <div class="joinrow">
+          <span class="count">{{ event.participant_count }} katılımcı</span>
+          {% if user.is_authenticated %}
+          <form method="post" action="{% url 'community:toggle_rsvp' event.id %}" style="margin:0">
+            {% csrf_token %}
+            {% if event.id in joined_ids %}
+            <button type="submit" class="join joined">✓ Katılıyorsun</button>
+            {% else %}
+            <button type="submit" class="join">Katıl</button>
+            {% endif %}
+          </form>
+          {% else %}
+          <a class="join" href="{% url 'login' %}">Katıl</a>
+          {% endif %}
+        </div>
       </div>
       {% empty %}
       <div class="ev"><h3>Yakında</h3><div class="meta">Yaklaşan etkinlik yok. Çok yakında yeni buluşmalar!</div></div>

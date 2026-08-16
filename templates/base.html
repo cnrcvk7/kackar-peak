@@ -17,7 +17,7 @@
   <div class="wrap">
     <nav>
       <a class="brand" href="{% url 'community:home' %}">
-        <img class="mark" src="{% static 'img/logo.jpeg' %}" alt="Kaçkar Peak">
+        <img class="mark" src="{% static 'img/mark.png' %}" alt="Kaçkar Peak">
         KAÇKAR PEAK
       </a>
       <div class="navlinks">
@@ -26,12 +26,25 @@
         <a href="{% url 'community:home' %}#activities">Aktiviteler</a>
         <a href="{% url 'community:gallery' %}">Galeri</a>
         <a href="{% url 'community:home' %}#faq">SSS</a>
-        <a class="navcta" href="{% url 'community:home' %}#join">Bize Katıl</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'community:profile' %}">Profilim</a>
+        {% else %}
+        <a href="{% url 'login' %}">Giriş</a>
+        {% endif %}
+        <a class="navcta" href="{% if user.is_authenticated %}{% url 'community:profile' %}{% else %}{% url 'community:signup' %}{% endif %}">{% if user.is_authenticated %}{{ user.username }}{% else %}Bize Katıl{% endif %}</a>
       </div>
       <div class="burger"><span></span><span></span><span></span></div>
     </nav>
   </div>
 </header>
+
+{% if messages %}
+<div class="flash-wrap">
+  {% for message in messages %}
+  <div class="flash flash-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
 
 {% block content %}{% endblock %}
 

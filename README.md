@@ -5,10 +5,6 @@ Koşu, yoga ve doğa yürüyüşü topluluğu için web sitesi. Django + Postgre
 
 ---
 
-## 🚀 Canlıya alma (GitHub → Render) — müşteriye link paylaşmak için
-
-Bu adımlar bittiğinde `https://kackar-peak.onrender.com` gibi bir canlı linkin olur.
-
 ### 1. GitHub'a yükle
 ```bash
 git init

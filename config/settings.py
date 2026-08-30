@@ -51,6 +51,21 @@ INSTALLED_APPS = [
     "community",
 ]
 
+# Cloudinary (permanent media storage) — only enabled when configured.
+CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME", "")
+CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY", "")
+CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET", "")
+USE_CLOUDINARY = bool(
+    CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET
+)
+if USE_CLOUDINARY:
+    INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
+    CLOUDINARY_STORAGE = {
+        "CLOUD_NAME": CLOUDINARY_CLOUD_NAME,
+        "API_KEY": CLOUDINARY_API_KEY,
+        "API_SECRET": CLOUDINARY_API_SECRET,
+    }
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     # WhiteNoise serves static files in production, right after security.
@@ -123,7 +138,13 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 STORAGES = {
-    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "default": {
+        "BACKEND": (
+            "cloudinary_storage.storage.MediaCloudinaryStorage"
+            if USE_CLOUDINARY
+            else "django.core.files.storage.FileSystemStorage"
+        )
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },

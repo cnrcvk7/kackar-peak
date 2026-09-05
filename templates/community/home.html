@@ -41,8 +41,8 @@
 <!-- MARQUEE -->
 <div class="strip">
   <div class="marquee">
-    <span>Cumartesi Koşusu</span><span>Sabah Yogası</span><span>Yayla Yürüyüşü</span><span>Tempo Antrenmanı</span><span>Zirve Tırmanışı</span>
-    <span>Cumartesi Koşusu</span><span>Sabah Yogası</span><span>Yayla Yürüyüşü</span><span>Tempo Antrenmanı</span><span>Zirve Tırmanışı</span>
+    <span>Koşu</span><span>Pilates</span><span>Yoga</span><span>Trekking</span><span>Bisiklet</span><span>Oryantiring</span><span>Kahve Demleme</span>
+    <span>Koşu</span><span>Pilates</span><span>Yoga</span><span>Trekking</span><span>Bisiklet</span><span>Oryantiring</span><span>Kahve Demleme</span>
   </div>
 </div>
 
@@ -80,7 +80,7 @@
       <div class="reveal">
         <div class="eyebrow">Biz kimiz</div>
         <h2>Küçük bir grup arkadaştan, <em>büyüyen bir harekete.</em></h2>
-        <p>Kaçkar Peak, doğada birlikte hareket etmenin iyileştirici gücüne inanan bir topluluk. Rekabet değil, aidiyet; performans değil, süreklilik. Her tempo, her seviye burada yerini bulur.</p>
+        <p>Kaçkar Peak, sporun doğayla, doğanın insanla buluştuğu bir topluluk. Bizim için mesele sadece koşmak, yürümek ya da daha yükseğe çıkmak değil; hareket etmek, sınırlarımızı keşfetmek ve bunu birlikte yapmak. Rekabetten çok dayanışmaya, performanstan çok sürekliliğe inanıyoruz. Her seviye, her tempo ve herkes için burada bir yer var.</p>
       </div>
       <div class="stats reveal">
         {% for stat in stats %}
@@ -90,10 +90,10 @@
           <div class="t">{{ stat.text }}</div>
         </div>
         {% empty %}
-        <div class="stat"><div class="n">200+</div><div class="k">Topluluk</div><div class="t">Aktif üye ve büyüyen bir aile</div></div>
-        <div class="stat"><div class="n">3</div><div class="k">Aktivite</div><div class="t">Koşu · Yoga · Doğa yürüyüşü</div></div>
-        <div class="stat"><div class="n">Haftada 4</div><div class="k">Buluşma</div><div class="t">Düzenli, ücretsiz ve herkese açık</div></div>
-        <div class="stat"><div class="n">2024</div><div class="k">Kuruluş</div><div class="t">İlk günden beri aynı ruhla</div></div>
+        <div class="stat"><div class="n">100+</div><div class="k">Topluluk</div><div class="t">Aktif üye ve büyüyen bir aile</div></div>
+        <div class="stat"><div class="n">6</div><div class="k">Branş</div><div class="t">Koşu · Pilates · Yoga · Trekking · Bisiklet · Oryantiring</div></div>
+        <div class="stat"><div class="n">Haftada 2</div><div class="k">Buluşma</div><div class="t">Düzenli, ücretsiz ve herkese açık</div></div>
+        <div class="stat"><div class="n">2026</div><div class="k">Kuruluş</div><div class="t">Doğada başlayan yeni bir yolculuk</div></div>
         {% endfor %}
       </div>
     </div>
@@ -196,6 +196,35 @@
       {% empty %}
       <div class="faq-item"><button class="faq-q">Katılmak için deneyimli olmam gerekiyor mu?<span class="plus">+</span></button><div class="faq-a"><p>Hayır. Etkinliklerimiz her seviyeye açık.</p></div></div>
       {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">İletişim</div>
+        <h2>Bize ulaş</h2>
+      </div>
+    </div>
+    <div class="contact-grid reveal">
+      <a href="https://www.instagram.com/kackarpeak/" target="_blank" rel="noopener" class="contact-card">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        <h3>Instagram</h3>
+        <p>@kackarpeak — etkinlik duyuruları ve anlar</p>
+      </a>
+      <a href="WHATSAPP_LINKI" target="_blank" rel="noopener" class="contact-card">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21l1.9-5.5a8 8 0 113.1 3.1z"/></svg>
+        <h3>WhatsApp Grubu</h3>
+        <p>Haftalık program ve buluşma detayları</p>
+      </a>
+      <a href="mailto:E_POSTA_ADRESI" class="contact-card">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <h3>E-posta</h3>
+        <p>Sorularınız ve iş birlikleri için</p>
+      </a>
     </div>
   </div>
 </section>

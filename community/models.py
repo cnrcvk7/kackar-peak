@@ -8,6 +8,7 @@ class ActivityType(models.TextChoices):
     YOGA = "yoga", "Yoga & Pilates"
     HIKE = "hike", "Doğa Yürüyüşü"
     BIKE = "bike", "Bisiklet"
+    ORIENTEERING = "orienteering", "Oryantiring"
 
 
 class Event(models.Model):
@@ -52,7 +53,8 @@ class Event(models.Model):
     @property
     def badge_class(self):
         return {"run": "b-run", "yoga": "b-yoga", "hike": "b-hike",
-                "bike": "b-bike"}.get(self.activity_type, "b-run")
+                "bike": "b-bike", "orienteering": "b-orienteering"}.get(
+                    self.activity_type, "b-run")
 
 
 class Activity(models.Model):

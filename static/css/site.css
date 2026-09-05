@@ -59,10 +59,20 @@
   }
   .hero-bg{position:absolute;inset:0;z-index:0}
   .hero-bg svg{width:100%;height:100%;object-fit:cover}
+  /* three-photo hero (Easy Run Club style) */
+  .hero-photos{display:flex}
+  .hero-strip{flex:1;overflow:hidden;position:relative}
+  .hero-strip::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(124,58,237,.18),rgba(13,13,16,.35))}
+  .hero-strip img{width:100%;height:100%;object-fit:cover;filter:grayscale(.25) contrast(1.05);animation:heroZoom 18s ease-in-out infinite alternate}
+  .hero-strip:nth-child(2) img{animation-delay:-6s}
+  .hero-strip:nth-child(3) img{animation-delay:-12s}
+  @keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.08)}}
   .hero-veil{
     position:absolute;inset:0;z-index:1;
-    background:linear-gradient(180deg,rgba(23,26,28,.5) 0%,rgba(23,26,28,.2) 40%,rgba(23,26,28,.92) 100%);
+    background:linear-gradient(180deg,rgba(13,13,16,.55) 0%,rgba(13,13,16,.35) 40%,rgba(13,13,16,.95) 100%);
   }
+  .hero-brand .l{font-family:'Archivo',sans-serif !important;font-weight:900 !important;font-style:normal !important;letter-spacing:-.01em;text-transform:uppercase}
+  .hero-brand .l:nth-child(2){color:var(--lime) !important}
   .hero .wrap{position:relative;z-index:2;width:100%}
   .hero-tag{margin-bottom:22px;opacity:0;animation:rise 1s var(--ease) .2s forwards}
   .hero h1{
